@@ -46,6 +46,25 @@ document.addEventListener("DOMContentLoaded", function() {
     decimal.addEventListener("click", function(){
         addDecimal();
     });
+
+    //adding Keyboard functionality
+    document.addEventListener("keydown", function(e) {
+        if(e.key >= '0' && e.key <= '9') {
+            handleNumber(e.key);
+        } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+            handleOperator(e.key === "*" ? "x" : e.key);
+        } else if(e.key === "Enter" || e.key === "=") {
+            calculate();
+            previousScreen.textContent = '';
+        } else if(e.key === ".") {
+            addDecimal();
+        } else if(e.key === "Escape") {
+            clear.click();
+        }
+
+        currentScreen.textContent = currentValue;
+        previousScreen.textContent = previousValue + " " + operator;
+    });
 });
 
 function handleNumber(num) {
